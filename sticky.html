@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+  <title>sticky</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+    integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+  <!-- 공통 js -->
+  <!--[if lt IE 10]>
+            <script src="../common/js/placeholders.min.js"></script>
+        <![endif]-->
+  <style>
+    header {
+      width: 100%;
+      height: 100px;
+      background-color: #aaa;
+    }
+
+    .outer {
+      background-color: #000;
+    }
+
+    .inner {
+      margin: auto;
+      max-width: 1200px;
+      width: 100%;
+      height: 1200px;
+      background-color: #eee;
+    }
+
+    .con {
+      width: 80%;
+      margin: auto;
+      height: 80px;
+      background-color: orange;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="wrap">
+    <header></header>
+    <div class="outer">
+      <div class="inner">
+        <div class="sticky con">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function sticky() {
+      var stickyWidth = $('.sticky').outerWidth(); //엘리먼트의 margin을 제외한 width값 구하기
+      var stickyLeft = $('.sticky').offset().left; //엘리먼트의 document기준 x좌표
+      var stickyTop = $('.sticky').offset().top;//엘리먼트의 document기준 y좌표
+      $(window).on({
+        scroll: function () {
+          var scrTop = $(window).scrollTop();//window 스크롤 값
+          //window y스크롤 값이 엘리먼트 y좌표보다 클경우 document 상단에 고정시키고 미리 구한 width값,x좌표값을 정한다.
+          if (stickyTop < scrTop) {
+            $('.sticky').css({ position: 'fixed', top: 0, left: stickyLeft, width: stickyWidth });
+          } else {
+            //작을경우 초기값으로 되돌린다.
+            $('.sticky').removeAttr('style');
+          }
+        },
+        resize: function () { //반응형 
+          var scrTop = $(window).scrollTop(); //window 스크롤 위치를 구함 
+          $('.sticky').removeAttr('style'); // 엘리먼트의 width,x좌표,y좌표 값을 구하기 위해 초기값으로 되돌린다.
+          stickyWidth = $('.sticky').outerWidth(); //width구함
+          stickyLeft = $('.sticky').offset().left; //x좌표 구함
+          stickyTop = $('.sticky').offset().top; //y좌표 구함
+          //window y스크롤 값이 엘리먼트 y좌표보다 클 경우 document 상단에 고정시키고 미리 구한 width값,x좌표값을 정한다.
+          if (stickyTop < scrTop) {
+            $('.sticky').css({ position: 'fixed', top: 0, left: stickyLeft, width: stickyWidth });
+          }
+        }
+      });
+    }
+    sticky();
+  </script>
+</body>
+
+</html>
