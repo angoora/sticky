@@ -12,3 +12,5 @@ jquery 라이브러리를 사용합니다.
 2. sticky() 함수를 선언하고 문서가 준비되면 호출합니다.
 3. 고정시키고자 하는 엘리먼트에 stick 클래스 부여
 
+[URL]
+https://angoora.github.io/sticky/sticky.html
